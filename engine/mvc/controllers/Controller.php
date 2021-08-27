@@ -25,11 +25,15 @@
 
 namespace Izy\MVC\Controllers;
 
+use Izy\Http\IResponse;
+use Izy\Http\ResponseFactory;
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORTS
+// INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 require_once( 'IController.php' );
+require_once( IZY_DIR . '/http/ResponseFactory.php' );
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
@@ -56,6 +60,14 @@ abstract class Controller implements IController
     protected function __construct()
     {
     }
+
+    /**
+     * Returns Response instance
+     *
+     * @return IResponse
+    */
+    final protected function response(): IResponse
+    { return ResponseFactory::build(); }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

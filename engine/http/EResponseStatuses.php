@@ -19,19 +19,37 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-if ( IZY_DEBUG ) {
-    error_reporting(E_ALL);
-    ini_set( 'display_startup_errors', 1 );
-    ini_set( 'display_errors', '1' );
-}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// NAMESPACE
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// Debug
-require_once( 'engine/utils/Log.php' );
+namespace Izy\Http;
 
-// Load App wit Engine dependencies
-require_once( 'app/configs/loader.php' );
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// TYPES
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// Load Engine & Handle Http Request
-require( 'engine/http/RequestHandler.php' );
+/**
+ * EResponseStatuses - enumeration of available response-statuses
+ *
+ * Allows to easily switch response status type (from boolean to string & vice-versa)
+ *
+ * @version 1.0
+*/
+final class EResponseStatuses
+{
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // CONSTANTS
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    public const SUCCESS = true;
+    public const FAIL    = false;
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+};
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

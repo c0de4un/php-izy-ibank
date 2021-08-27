@@ -26,6 +26,12 @@
 namespace Izy\Http;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// INCLUDES
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+require_once( 'EResponseStatuses.php' );
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -42,6 +48,57 @@ interface IResponse
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /**
+     * Set status
+     *
+     * Status is a additional field for ajax-based responses.
+     * Goes with data (json-body)
+     *
+     * @param bool $status - 'true' for success, 'false' for failure
+     *
+     * @return IResponse
+    */
+    public function Status( bool $status ): IResponse;
+
+    /**
+     * Set header value
+     *
+     * @param string $key
+     * @param string $value
+     *
+     * @return IResponse
+    */
+    public function Header( $key, $value ): IResponse;
+
+    /**
+     * Add data to response
+     *
+     * (?) If key os null, merge of matching items will be overwritten wit new values
+     *
+     * @param string $key. null to merge given array or object
+     * with already added data
+     *
+     * @param string||int $key
+     * @param any         $value
+     *
+     * @return IResponse
+    */
+    public function JSON( $key, $value ): IResponse;
+
+    /**
+     * Reset Response state.
+     *
+     * @return IResponse
+    */
+    public function Reset(): IResponse;
+
+    /**
+     * Commit response
+     *
+     * @return void
+    */
+    public function Commit(): void;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

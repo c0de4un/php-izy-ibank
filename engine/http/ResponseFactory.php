@@ -19,28 +19,30 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\MVC\Controllers;
+namespace Izy\Http;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// INCLUDES
+// IMPORT
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-require_once( IZY_DIR . '/http/IRequest.php' );
+require_once( 'Response.php' );
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * IController - controller behavior contract
+ * ResponseFacroy - facade to get/create response instance
  *
  * @version 1.0
 */
-interface IController
+final class ResponseFactory
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -48,6 +50,17 @@ interface IController
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    public static function build(): IResponse
+    { return Response::Initialize(); }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // METHODS.PRIVATE
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    private function __construct()
+    {
+    }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

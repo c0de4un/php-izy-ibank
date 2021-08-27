@@ -26,7 +26,7 @@
 namespace Izy\Http;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORTS
+// INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 require_once( 'Url.php' );

@@ -26,7 +26,7 @@
 namespace c0de4un\IBank\Controllers;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORTS
+// INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 require_once( IZY_DIR . '/mvc/controllers/Controller.php' );
@@ -69,8 +69,22 @@ final class Auth extends Controller
     */
     public function index(): void
     {
-        // @TODO: Auth::index()
-        exit('Auth::index()');
+        exit('
+            <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Привет мир !</title>
+                </head>
+                <body>
+                    <h2>Привет мир !</h2>
+                </body>
+            </html>
+        ');
+
+        // $this->response()
+            // ->status( true )
+            // ->JSON( 'title', 'hello world !' )
+            // ->Commit();
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
