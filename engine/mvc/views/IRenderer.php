@@ -23,31 +23,18 @@
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\MVC\Controllers;
-
-use Izy\Http\IResponse;
-use Izy\Http\ResponseFactory;
-use Izy\MVC\Views\IRenderer;
-use Izy\MVC\Views\RendererFactory;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// INCLUDES
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-require_once( 'IController.php' );
-require_once( IZY_DIR . '/http/ResponseFactory.php' );
-require_once( IZY_DIR . '/mvc/views/RendererFactory.php' );
+namespace Izy\MVC\Views;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * Controller - base class for controllers
+ * IRenderer - view renderer behavior contract
  *
  * @version 1.0
 */
-abstract class Controller implements IController
+interface IRenderer
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -56,29 +43,25 @@ abstract class Controller implements IController
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PROTECTED
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    protected function __construct()
-    {
-    }
+    /**
+     * Render HTML-content to string
+     *
+     * @param string $path
+     * @param array  [ $view_data = [] ]
+     *
+     * @return string
+    */
+    public function RenderToString( string $path, array $view_data = [] ): string;
 
     /**
-     * Returns Response instance
+     * Render HTML-content to output
      *
-     * @return IResponse
-    */
-    final protected function response(): IResponse
-    { return ResponseFactory::build(); }
-
-    /**
-     * Returns IRenderer for HTML
+     * @param string $path
+     * @param array  [ $view_data = [] ]
      *
-     * @return IRenderer
+     * @return void
     */
-    final protected function renderer(): IRenderer
-    { return RendererFactory::build(); }
+    public function Render( string $path, array $view_data = [] ): void;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

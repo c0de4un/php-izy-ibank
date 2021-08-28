@@ -23,31 +23,25 @@
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\MVC\Controllers;
-
-use Izy\Http\IResponse;
-use Izy\Http\ResponseFactory;
-use Izy\MVC\Views\IRenderer;
-use Izy\MVC\Views\RendererFactory;
+namespace Izy\MVC\Views;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-require_once( 'IController.php' );
-require_once( IZY_DIR . '/http/ResponseFactory.php' );
-require_once( IZY_DIR . '/mvc/views/RendererFactory.php' );
+require_once( 'ERenderers.php' );
+require_once( 'HTMLRenderer.php' );
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * Controller - base class for controllers
+ * RendererFactory
  *
  * @version 1.0
 */
-abstract class Controller implements IController
+final class RendererFactory
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -56,29 +50,23 @@ abstract class Controller implements IController
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PROTECTED
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    protected function __construct()
-    {
-    }
-
     /**
-     * Returns Response instance
+     * Initialize, if required, and return IRenderer instance
      *
-     * @return IResponse
-    */
-    final protected function response(): IResponse
-    { return ResponseFactory::build(); }
-
-    /**
-     * Returns IRenderer for HTML
+     * @param int [$type = HTML]
+     * @see ERenderers
      *
      * @return IRenderer
     */
-    final protected function renderer(): IRenderer
-    { return RendererFactory::build(); }
+    public static function build( int $type = ERenderers::HTML ): IRenderer
+    {
+        // Known renderers
+        $renderers = [
+            ERenderers::HTML => HTMLRenderer::class,
+        ];
+
+        return HTMLRenderer::Initialize();
+    }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

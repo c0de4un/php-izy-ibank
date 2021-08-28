@@ -23,62 +23,105 @@
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\MVC\Controllers;
-
-use Izy\Http\IResponse;
-use Izy\Http\ResponseFactory;
-use Izy\MVC\Views\IRenderer;
-use Izy\MVC\Views\RendererFactory;
+namespace Izy\MVC\Views;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-require_once( 'IController.php' );
-require_once( IZY_DIR . '/http/ResponseFactory.php' );
-require_once( IZY_DIR . '/mvc/views/RendererFactory.php' );
+require_once( IZY_DIR . '/mvc/views/IRenderer.php' );
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * Controller - base class for controllers
+ * HTMLRenderer - render HTML-based content
  *
  * @version 1.0
 */
-abstract class Controller implements IController
+final class HTMLRenderer implements IRenderer
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FIELDS
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /** @var HTMLRenderer */
+    private static $instance = null;
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+    /**
+     * Initialize HTMLRenderer instance
+     *
+     * @return IRenderer
+    */
+    public static function Initialize(): IRenderer
+    {
+        if ( !self::$instance ) {
+            self::$instance = new HTMLRenderer();
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * Render HTML-content to string
+     *
+     * @param string $path
+     * @param array  [ $view_data = [] ]
+     *
+     * @return string
+    */
+    public function RenderToString( string $path, array $view_data = [] ): string
+    { return $this->onRender( $path, $view_data ); }
+
+    /**
+     * Render HTML-content to an output buffer
+     *
+     * @param string $path
+     * @param array  [ $view_data = [] ]
+     *
+     * @return void
+    */
+    public function Render( string $path, array $view_data = [] ): void
+    { echo $this->onRender( $path, $view_data ); }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PROTECTED
+    // METHODS.PRIVATE
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    protected function __construct()
+    private function __construct()
     {
     }
 
     /**
-     * Returns Response instance
+     * Render HTML-content to string
      *
-     * @return IResponse
+     * @param string $path
+     * @param array  $view_data
+     *
+     * @return string
     */
-    final protected function response(): IResponse
-    { return ResponseFactory::build(); }
+    private function onRender( string $path, $view_data ): string
+    {
+        // Stash data into symbols table
+        extract( $view_data, EXTR_SKIP | EXTR_REFS );
 
-    /**
-     * Returns IRenderer for HTML
-     *
-     * @return IRenderer
-    */
-    final protected function renderer(): IRenderer
-    { return RendererFactory::build(); }
+        // Start Buffering
+        ob_start( null, 0, PHP_OUTPUT_HANDLER_CLEANABLE | PHP_OUTPUT_HANDLER_REMOVABLE );
+
+        // Include View
+        include( APP_DIR . "/views/{$path}.php" );
+
+        // Get Buffer-Content & Release it
+        return ob_get_clean( );
+    }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

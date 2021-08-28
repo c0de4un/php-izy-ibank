@@ -23,62 +23,29 @@
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\MVC\Controllers;
-
-use Izy\Http\IResponse;
-use Izy\Http\ResponseFactory;
-use Izy\MVC\Views\IRenderer;
-use Izy\MVC\Views\RendererFactory;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// INCLUDES
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-require_once( 'IController.php' );
-require_once( IZY_DIR . '/http/ResponseFactory.php' );
-require_once( IZY_DIR . '/mvc/views/RendererFactory.php' );
+namespace Izy\MVC\Views;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * Controller - base class for controllers
+ * ERenderers - known content renderers enumeration
  *
  * @version 1.0
 */
-abstract class Controller implements IController
+final class ERenderers
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PUBLIC
+    // CONSTANTS
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PROTECTED
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    protected function __construct()
-    {
-    }
-
-    /**
-     * Returns Response instance
-     *
-     * @return IResponse
-    */
-    final protected function response(): IResponse
-    { return ResponseFactory::build(); }
-
-    /**
-     * Returns IRenderer for HTML
-     *
-     * @return IRenderer
-    */
-    final protected function renderer(): IRenderer
-    { return RendererFactory::build(); }
+    public const HTML = 1;
+    public const  PDF = 2;
+    public const WORD = 3;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
