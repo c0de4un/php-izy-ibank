@@ -19,48 +19,52 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\Http;
+namespace Izy\MVC;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORT
+// INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-require_once( 'Response.php' );
+require_once( IZY_DIR . '/mvc/IEntity.php' );
+require_once( IZY_DIR . '/mvc/ComponentLoader.php' );
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * ResponseFacroy - facade to get/create response instance
+ * Entity - base MVC-related entity class
  *
  * @version 1.0
 */
-final class ResponseFactory
+abstract class Entity
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PUBLIC
+    // IEntity.OVERRIDE.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static function build(): IResponse
-    { return Response::Instance(); }
-
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PRIVATE
+    // METHODS.PROTECTED
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    private function __construct()
+    protected function __construct()
     {
     }
+
+    /**
+     * Returns ComponentLoader instance
+     *
+     * @return ComponentLoader
+    */
+    final protected function loader(): ComponentLoader
+    { return ComponentLoader::Instance(); }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

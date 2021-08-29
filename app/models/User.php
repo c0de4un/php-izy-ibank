@@ -19,30 +19,34 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\Http;
+namespace c0de4un\IBank\Models;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORT
+// INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-require_once( 'Response.php' );
+require_once( IZY_DIR . '/mvc/models/Model.php' );
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// USE
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+use Izy\MVC\Models\Model;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * ResponseFacroy - facade to get/create response instance
+ * User - model to work with 'users' table & related objects
  *
  * @version 1.0
 */
-final class ResponseFactory
+final class User extends Model
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -51,19 +55,14 @@ final class ResponseFactory
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static function build(): IResponse
-    { return Response::Instance(); }
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PRIVATE
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    private function __construct()
+    public function __construct()
     {
+        parent::__construct();
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 };
+class_alias( User::class, 'User_model' );
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

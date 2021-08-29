@@ -61,7 +61,7 @@ final class HTMLRenderer implements IRenderer
      *
      * @return IRenderer
     */
-    public static function Initialize(): IRenderer
+    public static function Instance(): IRenderer
     {
         if ( !self::$instance ) {
             self::$instance = new HTMLRenderer();

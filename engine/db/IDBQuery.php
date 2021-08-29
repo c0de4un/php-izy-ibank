@@ -19,30 +19,26 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\Http;
+namespace Izy\DB;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORT
+// INCLUDS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-require_once( 'Response.php' );
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * ResponseFacroy - facade to get/create response instance
+ * IDBQuery - database connection-based query behavior contract
  *
  * @version 1.0
 */
-final class ResponseFactory
+interface IDBQuery
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -51,16 +47,14 @@ final class ResponseFactory
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static function build(): IResponse
-    { return Response::Instance(); }
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PRIVATE
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    private function __construct()
-    {
-    }
+    /**
+     * Execute raw-sql query
+     *
+     * @param string $sql_query
+     *
+     * @return array[object] - array of stdClass-based objects with each field as column from DB
+    */
+    public function Raw( string $sql_query ): array;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

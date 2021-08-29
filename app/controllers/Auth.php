@@ -31,9 +31,13 @@ namespace c0de4un\IBank\Controllers;
 
 require_once( IZY_DIR . '/mvc/controllers/Controller.php' );
 
+require_once( APP_DIR . '/models/User.php' );
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // USE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+use c0de4un\IBank\Models\User;
 
 use Izy\MVC\Controllers\Controller;
 
@@ -58,6 +62,8 @@ final class Auth extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->User_model = $this->loader()->model( 'User_model' );
     }
 
     /**
@@ -69,6 +75,12 @@ final class Auth extends Controller
     */
     public function index(): void
     {
+        /** Get User @var User */
+        $users = $this->User_model->getAll();
+        var_dump( $users );
+        exit( 'Auth::index: Model::getAll() Test' );
+
+        // Render Auth
         $this->renderer()
             ->Render( 'auth', ['title' => 'Hello World !'] );
         // exit('

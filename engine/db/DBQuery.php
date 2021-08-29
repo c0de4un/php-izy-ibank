@@ -19,47 +19,86 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\Http;
+namespace Izy\DB;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORT
+// INCLUDS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-require_once( 'Response.php' );
+require_once( 'IDBQuery.php' );
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// USE
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+use PDO;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * ResponseFacroy - facade to get/create response instance
+ * DBQuery - base db query
  *
  * @version 1.0
 */
-final class ResponseFactory
+abstract class DBQuery implements IDBQuery
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FIELDS
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /** @var PDO */
+    protected $connection = null;
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static function build(): IResponse
-    { return Response::Instance(); }
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PRIVATE
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    private function __construct()
+    /**
+     * Execute raw-sql query
+     *
+     * @param string $sql_query
+     *
+     * @return array[object] - array of stdClass-based objects with each field as column from DB
+    */
+    public function Raw( string $sql_query ): array
     {
+        $output = [];
+
+        /** @var PDOStatement */
+        $pdo_statement = $this->connection->prepare( $sql_query );
+
+        // Execute & fetch PDOStatement
+        if ( !$pdo_statement->execute() ) {
+            throw new \Exception( $pdo_statement->errorInfo()[2] ?? 'Unknown SQL-error', 500 );
+        }
+
+        // Iterate Rows
+        while ( $row = $pdo_statement->fetch(PDO::FETCH_LAZY) ) {
+            $output []= $row;
+        }
+
+        return $output;
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // METHODS.PROTECTED
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /**
+     * @param PDO $pdo
+    */
+    protected function __construct( PDO $pdo )
+    {
+        $this->connection = $pdo;
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

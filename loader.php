@@ -27,6 +27,7 @@ if ( IZY_DEBUG ) {
 
 // Debug
 require_once( 'engine/utils/Log.php' );
+\Izy\Utils\Log::getInstance( true, IZY_LOG_DIR );
 
 // Load App wit Engine dependencies
 require_once( 'app/configs/loader.php' );

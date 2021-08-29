@@ -65,7 +65,7 @@ final class RendererFactory
             ERenderers::HTML => HTMLRenderer::class,
         ];
 
-        return HTMLRenderer::Initialize();
+        return HTMLRenderer::Instance();
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -66,13 +66,14 @@ final class Log
     /**
      * @brief
      *
-     * @param Boolean $alloc = true
+     * @param boolean [$alloc = true]
+     * @param string  [$dir = null ]
      * @return FLogger||NULL
     */
-    public static function getInstance( bool $alloc = true )
+    public static function getInstance( bool $alloc = true, $dir = null )
     {
         if ( $alloc && empty(self::$instance) ) {
-            self::$instance = new Log();
+            self::$instance = new Log( $dir );
         }
 
         return self::$instance;
@@ -158,8 +159,8 @@ final class Log
     private static function print( $msg, $context = 'core', $dir = 'log' ): void
     {
         $instance = self::getInstance();
-        $file = $instance->getFile( $context, $dir );
-        $dt_mark = date( 'Y-m-d H:i:s' );
+        $file     = $instance->getFile( $context, $dir );
+        $dt_mark  = date( 'Y-m-d H:i:s' );
         fwrite( $file, $dt_mark.PHP_EOL.$msg.PHP_EOL );
     }
 
@@ -189,9 +190,7 @@ final class Log
      * @return String
     */
     private function getDateMark()
-    {
-        return date('Y_m_d', time() );
-    }
+    { return date('Y_m_d', time() ); }
 
     /**
      * Build log-file name
@@ -211,9 +210,12 @@ final class Log
         return $output;
     }
 
-    private function __constructor()
+    /**
+     * @param string [$dir = null]
+    */
+    private function __constructor( string $dir= null )
     {
-        $this->ROOT_DIR = getcwd();
+        $this->ROOT_DIR = $dir ?? getcwd();
 
         register_shutdown_function( [$this, 'handleShutdown'] );
     }

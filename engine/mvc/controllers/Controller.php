@@ -25,18 +25,24 @@
 
 namespace Izy\MVC\Controllers;
 
-use Izy\Http\IResponse;
-use Izy\Http\ResponseFactory;
-use Izy\MVC\Views\IRenderer;
-use Izy\MVC\Views\RendererFactory;
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 require_once( 'IController.php' );
+require_once( IZY_DIR . '/mvc/Entity.php' );
 require_once( IZY_DIR . '/http/ResponseFactory.php' );
 require_once( IZY_DIR . '/mvc/views/RendererFactory.php' );
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// USE
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+use Izy\MVC\Entity;
+use Izy\Http\IResponse;
+use Izy\Http\ResponseFactory;
+use Izy\MVC\Views\IRenderer;
+use Izy\MVC\Views\RendererFactory;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
@@ -47,7 +53,7 @@ require_once( IZY_DIR . '/mvc/views/RendererFactory.php' );
  *
  * @version 1.0
 */
-abstract class Controller implements IController
+abstract class Controller extends Entity implements IController
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -62,6 +68,7 @@ abstract class Controller implements IController
 
     protected function __construct()
     {
+        parent::__construct();
     }
 
     /**

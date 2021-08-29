@@ -19,30 +19,22 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\Http;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORT
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-require_once( 'Response.php' );
+namespace Izy\MVC\Models;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * ResponseFacroy - facade to get/create response instance
+ * IModel - model behavior contract
  *
  * @version 1.0
 */
-final class ResponseFactory
+interface IModel
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -51,16 +43,29 @@ final class ResponseFactory
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static function build(): IResponse
-    { return Response::Instance(); }
+    /**
+     * Deserialize instance
+     *
+     * @param int||string [$primary_key = null] - null to use already set primary-key
+     *
+     * @return bool - 'true' on success, 'false' if row by primary-key were not found
+    */
+    public function Load( $primary_key = null ): bool;
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PRIVATE
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    private function __construct()
-    {
-    }
+    /**
+     * Serialize instnace
+     *
+     * @return array
+     * @example
+     * [
+     *     'success' => true,
+     *     'errors'  => [
+     *         'id'         => 'Can\'t rewrite this column because it is unique per row',
+     *         'created_at' => 'This column can\'t be null',
+     *     ],
+     * ]
+    */
+    public function Save(): array;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

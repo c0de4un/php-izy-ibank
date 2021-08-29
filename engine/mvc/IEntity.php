@@ -19,30 +19,22 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\Http;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORT
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-require_once( 'Response.php' );
+namespace Izy\MVC;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * ResponseFacroy - facade to get/create response instance
+ * IEntity - MVC-related entity behavior contract
  *
  * @version 1.0
 */
-final class ResponseFactory
+interface IEntity
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -50,17 +42,6 @@ final class ResponseFactory
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    public static function build(): IResponse
-    { return Response::Instance(); }
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PRIVATE
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    private function __construct()
-    {
-    }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

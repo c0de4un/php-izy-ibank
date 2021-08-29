@@ -19,51 +19,77 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\Http;
+namespace Izy\MVC;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORT
+// INCLUDES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-require_once( 'Response.php' );
+require_once( IZY_DIR . '/mvc/models/IModel.php' );
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-/**
- * ResponseFacroy - facade to get/create response instance
- *
- * @version 1.0
-*/
-final class ResponseFactory
+final class ComponentLoader
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FIELDS
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /** @var ComponentLoader */
+    private static $instance = null;
+
+    /** @var array[string=>IModel] */
+    private $models = [];
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static function build(): IResponse
-    { return Response::Instance(); }
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PRIVATE
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    private function __construct()
+    /**
+     * Initialize loader
+     *
+     * @return ComponentLoader
+    */
+    public static function Instance()
     {
+        if ( !self::$instance ) {
+            self::$instance = new ComponentLoader();
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * Initialize singleton models instance
+     *
+     * @param string $class - class
+     *
+     * @return IModel, same instance, used for all requests
+    */
+    public function model( string $class )
+    {
+        $output = $this->models[$class] ?? null;
+        if ( !$output ) {
+            $this->models[$class] = new $class();
+
+            $output = $this->models[$class];
+        }
+
+        return $output;
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 };
+class_alias( ComponentLoader::class, 'Loader' );
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

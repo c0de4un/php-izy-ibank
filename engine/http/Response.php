@@ -76,7 +76,7 @@ final class Response implements IResponse
      *
      * @return IResponse
     */
-    public static function Initialize(): IResponse
+    public static function Instance(): IResponse
     {
         if ( !self::$instance ) {
             self::$instance = new Response();

@@ -19,19 +19,17 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-define( 'CONFIG_INCLUDED', 1 );
-
-define( 'IZY_DIR', __DIR__ . '/engine' );
-define( 'APP_DIR', __DIR__ . '/app' );
-define( 'IZY_CONFIGS_DIR', __DIR__ );
-define( 'MAX_RECURSION_DEPTH', 7 );
-
-define( 'IZY_DEBUG', true );
-define( 'IZY_LOG_ENABLED', true );
-define( 'ENVIRONMENT', 'debug' );
-define( 'IZY_LOG_DIR', __DIR__ . '/log' );
-
-// Proxy
-define( 'USE_FORWARDED_HOST', false );
+return [
+    'connections' => [
+        'mysql' => [
+            'type'     => 'mysql',
+            'db'       => 'ibank_dev',
+            'charset'  => 'UTF8',
+            'host'     => 'localhost',
+            'login'    => 'root',
+            'password' => '',
+        ],
+    ],
+];
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

@@ -19,30 +19,34 @@
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NAMESPACE
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace Izy\Http;
+namespace Izy\DB;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// IMPORT
+// INCLUDS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-require_once( 'Response.php' );
+require_once( 'DBQuery.php' );
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// USE
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+use PDO;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // TYPES
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /**
- * ResponseFacroy - facade to get/create response instance
+ * MySQLQuery - MySQL query adapter
  *
  * @version 1.0
 */
-final class ResponseFactory
+final class MySQLQuery extends DBQuery
 {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -51,15 +55,12 @@ final class ResponseFactory
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static function build(): IResponse
-    { return Response::Instance(); }
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    // METHODS.PRIVATE
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    private function __construct()
+    /**
+     * @param PDO $pdo
+    */
+    public function __construct( PDO $pdo )
     {
+        parent::__construct( $pdo );
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
