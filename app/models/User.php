@@ -52,6 +52,24 @@ final class User extends Model
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // CONSTANTS
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /** DB Name. null to use default @var string */
+    public const DB_NAME = null;
+
+    /** Table Name @var string */
+    public const TABLE = 'users';
+
+    /** Model Fields @var array */
+    public const FIELDS = [
+    ];
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // FIELDS
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // METHODS.PUBLIC
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

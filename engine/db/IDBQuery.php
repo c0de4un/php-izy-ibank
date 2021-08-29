@@ -52,9 +52,87 @@ interface IDBQuery
      *
      * @param string $sql_query
      *
-     * @return array[object] - array of stdClass-based objects with each field as column from DB
+     * @return array[object] - array objects with each field as column from DB
     */
     public function Raw( string $sql_query ): array;
+
+    /**
+     * Add SELECT statement
+     *
+     * @param strin $select
+     *
+     * @return IDBQuery
+    */
+    public function select( string $select ): IDBQuery;
+
+    /**
+     * Adds FROM statement
+     *
+     * @param string $table
+     *
+     * @return IDBQuery
+     */
+    public function from( string $table ): IDBQuery;
+
+    /**
+     * Add WHERE or AND statement
+     *
+     * @param string           $column
+     * @param string||in||bool $value
+     *
+     * @return IDBQuery
+    */
+    public function where( string $column, $value ): IDBQuery;
+
+    /**
+     * Add OR statement
+     *
+     * @param string           $column
+     * @param string||in||bool $value
+     *
+     * @return IDBQuery
+    */
+    public function orWhere( string $column, $value ): IDBQuery;
+
+    /**
+     * Increase WHERE-statement depth
+     * Add '(' to query
+     *
+     * @return IDBQuery
+    */
+    public function groupStart(): IDBQuery;
+
+    /**
+     * Decrease WHERE-statement depth
+     * Add ')' to query
+     *
+     * @return IDBQuery
+    */
+    public function groupEnd(): IDBQuery;
+
+    /**
+     * Adds ORDER BY statement
+     *
+     * @param string $columns
+     * @param string $direction @example: ASC
+     *
+     * @return IDBQuery
+    */
+    public function orderBy( string $column, string $direction ): IDBQuery;
+
+    /**
+     * Compile to SQL-query for PDO & Execute
+     *
+     * @return array[]
+    */
+    public function Commit(): array;
+
+    /**
+     * Returns compiled SQL-query string
+     *
+     * @return string
+    */
+    public function getCompiled(): string;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

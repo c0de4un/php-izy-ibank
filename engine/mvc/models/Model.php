@@ -70,11 +70,16 @@ abstract class Model extends Entity implements IModel
     */
     public function Load( $primary_key = null ): bool
     {
+        $class = get_class($this);
+
         // Set Primary-Key value
         if ( $primary_key ) {
-            $primary_field = get_class($this)::PRIMARY_FIELD;
+            $primary_field = $class::PRIMARY_FIELD;
             $this->$primary_field = $primary_key;
         }
+
+        // @TODO: Model::Load()
+        // $row = $this->db( $class::DB_NAME )->
 
         // @TODO: Model::load()
         return false;
@@ -110,8 +115,15 @@ abstract class Model extends Entity implements IModel
     */
     public function getAll(): array
     {// @TODO: Model::getAll()
+        $class = get_class( $this );
+
         // Get DBQuery
-        $rows = $this->db()->Raw( "SELECT * FROM users" );
+        // $rows = $this->db()->Raw( "SELECT * FROM users" );
+        $rows = $this->db()->select('*')
+            ->from($class::TABLE)
+            ->where('id =', 1)
+            ->orderBy( 'id', 'ASC' )
+            ->Commit();
 
         var_dump( $rows );
         exit( 'Model::getAll: PDO-Test' );
